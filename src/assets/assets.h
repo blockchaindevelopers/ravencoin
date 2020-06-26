@@ -62,6 +62,7 @@ struct CAssetOutputEntry;
 class CCoinControl;
 struct CBlockAssetUndo;
 class COutput;
+class UniValue;
 
 // 2500 * 82 Bytes == 205 KB (kilobytes) of memory
 #define MAX_CACHE_ASSETS_SIZE 2500
@@ -578,5 +579,6 @@ bool ContextualCheckReissueAsset(CAssetsCache* assetCache, const CReissueAsset& 
 bool ContextualCheckReissueAsset(CAssetsCache* assetCache, const CReissueAsset& reissue_asset, std::string& strError);
 bool ContextualCheckUniqueAssetTx(CAssetsCache* assetCache, std::string& strError, const CTransaction& tx);
 bool ContextualCheckUniqueAsset(CAssetsCache* assetCache, const CNewAsset& unique_asset, std::string& strError);
-
+void ScriptPubKeyToUnivWithAssets(const CScript& scriptPubKey, UniValue& out, bool fIncludeHex);
+void TxToUnivWithAssets(const CTransaction& tx, const uint256& hashBlock, UniValue& entry, bool include_hex = true, int serialize_flags = 0);
 #endif //RAVENCOIN_ASSET_PROTOCOL_H

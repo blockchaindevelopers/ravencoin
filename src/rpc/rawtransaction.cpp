@@ -4,6 +4,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "assets/assets.h"
 #include "base58.h"
 #include "chain.h"
 #include "coins.h"
@@ -44,7 +45,7 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry, 
     // Blockchain contextual information (confirmations and blocktime) is not
     // available to code in raven-common, so we query them here and push the
     // data into the returned UniValue.
-    TxToUniv(tx, uint256(), entry, true, RPCSerializationFlags());
+    TxToUnivWithAssets(tx, uint256(), entry, true, RPCSerializationFlags());
 
     if (expanded) {
         uint256 txid = tx.GetHash();
@@ -1547,7 +1548,7 @@ UniValue decoderawtransaction(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "TX decode failed");
 
     UniValue result(UniValue::VOBJ);
-    TxToUniv(CTransaction(std::move(mtx)), uint256(), result, false);
+    TxToUnivWithAssets(CTransaction(std::move(mtx)), uint256(), result, false);
 
     return result;
 }
@@ -1600,7 +1601,7 @@ UniValue decodescript(const JSONRPCRequest& request)
     } else {
         // Empty scripts are valid
     }
-    ScriptPubKeyToUniv(script, r, false);
+    ScriptPubKeyToUnivWithAssets(script, r, false);
 
     UniValue type;
     type = find_value(r, "type");

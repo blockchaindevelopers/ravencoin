@@ -10,6 +10,7 @@
 #include "script/script.h"
 #include "script/standard.h"
 #include "uint256.h"
+#include "validation.h"
 #include "test/test_raven.h"
 
 #include <vector>
@@ -105,7 +106,7 @@ BOOST_FIXTURE_TEST_SUITE(sigopcount_tests, BasicTestingSetup)
         spendingTx.vout[0].nValue = 1;
         spendingTx.vout[0].scriptPubKey = CScript();
 
-        AddCoins(coins, creationTx, 0, uint256());
+        AddCoinsWithAssets(coins, creationTx, 0, uint256());
     }
 
     BOOST_AUTO_TEST_CASE(GetTxSigOpCost_test)

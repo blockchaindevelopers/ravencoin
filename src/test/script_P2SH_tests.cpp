@@ -338,7 +338,7 @@ BOOST_FIXTURE_TEST_SUITE(script_P2SH_tests, BasicTestingSetup)
         txFrom.vout[6].scriptPubKey = GetScriptForDestination(CScriptID(twentySigops));
         txFrom.vout[6].nValue = 6000;
 
-        AddCoins(coins, txFrom, 0, uint256());
+        AddCoinsWithAssets(coins, txFrom, 0, uint256());
 
         CMutableTransaction txTo;
         txTo.vout.resize(1);
